@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { AllRoutes } from './routes/AllRoutes';
+import { Header, Footer } from './components';
 
 function App() {
+
+  const [darkMode, setDarkMode] = useState<boolean>(true);
+
+  const togggleDarkMode = () => {
+    document.body.className = darkMode ? "light-mode" : "dark-mode";
+    setDarkMode((prevState: boolean) => !prevState);
+  };
+
+  useEffect(()=>{
+    document.body.className = "dark-mode";
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <>
+    <div className={darkMode ? "App dark" : "App"}>
+      <div className=" dark:bg-slate-950">
+        <Header togggleDarkMode={togggleDarkMode} />
+        <AllRoutes />
+        <Footer />
+      </div>
     </div>
+    </>
   );
 }
 
